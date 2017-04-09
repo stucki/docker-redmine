@@ -3,7 +3,8 @@ version: '2'
 services:
 
   redmine:
-    image: redmine:3.3
+    build:
+      context: docker/redmine-custom-uid/
     ports:
       - 8080:3000
     environment:
@@ -12,8 +13,8 @@ services:
     depends_on:
       - db
     volumes:
-      - 'files/:/usr/src/redmine/files/'
-      - 'config/configuration.yml:/usr/src/redmine/config/configuration.yml'
+      - './data/redmine/:/usr/src/redmine/'
+      - './data/files/:/usr/src/redmine/files/'
 
   db:
     image: mariadb
