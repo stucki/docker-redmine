@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+
+  redmine:
+    image: redmine:3.3
+    ports:
+      - 8080:3000
+    environment:
+      REDMINE_DB_MYSQL: db
+      REDMINE_DB_PASSWORD: example
+    depends_on:
+      - db
+    volumes:
+      - 'files/:/usr/src/redmine/files/'
+      - 'config/configuration.yml:/usr/src/redmine/config/configuration.yml'
+
+  db:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: redmine
